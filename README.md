@@ -1,38 +1,9 @@
-## 欢迎来到我的博客
+# Pi Deve Agent
 
-You can use the [editor on GitHub](https://github.com/deveuper/Deveuper.github.io/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
+[打开产品主页](https://deveuper.github.io/Pi-DeveAgent/) · [下载](https://github.com/deveuper/Deveuper.github.io/releases) · [查看公开介绍](https://github.com/deveuper/Deveuper.github.io/tree/main/Pi-DeveAgent)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+独立的 Pi 桌面工作台，支持多模型协作、本地模型、语音输入、Skill、插件和 MCP。
 
-### Markdown测试标题
+软件界面支持简体中文与英文，产品主页提供十五种介绍语言。
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-此处为markdown代码
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes 使用Jekyll风格
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/deveuper/Deveuper.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact 标题
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+![Pi Deve Agent](Pi-DeveAgent/assets/workspace-light.png)
