@@ -82,6 +82,8 @@
   function setTheme(value) {
     theme = value;
     document.documentElement.dataset.theme = value;
+    const heroImage = document.querySelector(".hero-screen > img");
+    if (heroImage) heroImage.src = `assets/workspace-${value === "dark" || value === "midnight" ? "dark" : "light"}.png`;
     for (const button of document.querySelectorAll("[data-theme-choice]")) button.setAttribute("aria-pressed", String(button.dataset.themeChoice === value));
     syncLinks();
   }
@@ -107,9 +109,43 @@
   });
   for (const button of document.querySelectorAll("[data-theme-choice]")) button.addEventListener("click", () => { setTheme(button.dataset.themeChoice); updateAddress(); });
   for (const button of document.querySelectorAll("[data-gallery]")) button.addEventListener("click", () => {
-    document.querySelector("#gallery-image").src = `assets/${button.dataset.gallery}.png`;
+    const image = document.querySelector("#gallery-image");
+    image.classList.add("is-switching");
+    image.onload = image.onerror = () => image.classList.remove("is-switching");
+    image.src = `assets/${button.dataset.gallery}.png`;
+    if (image.complete) image.classList.remove("is-switching");
     for (const item of document.querySelectorAll("[data-gallery]")) item.setAttribute("aria-pressed", String(item === button));
   });
   setLanguage(language);
   setTheme(theme);
+
+  // Progressive enhancement: no observer, no JavaScript, or reduced motion keeps all content visible.
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  let observer;
+  function disableMotion() {
+    document.documentElement.classList.remove("motion-ready");
+    observer?.disconnect();
+  }
+  if (!motion.matches && "IntersectionObserver" in window) {
+    try {
+      const elements = document.querySelectorAll(".hero-copy, .hero-screen, .section-heading, .feature-grid article, .section-copy, .detail-screen, .toolkit article, .gallery, .architecture-line, .download-section");
+      observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }, { threshold: 0.05, rootMargin: "0px 0px -24px 0px" });
+      for (const element of elements) {
+        element.dataset.reveal = "";
+        const bounds = element.getBoundingClientRect();
+        if (bounds.top < innerHeight && bounds.bottom > 0) element.classList.add("is-visible");
+        observer.observe(element);
+      }
+      document.documentElement.classList.add("motion-ready");
+      // Keyboard jumps cannot land in transparent content while waiting for the observer.
+      document.addEventListener("focusin", (event) => event.target.closest?.("[data-reveal]")?.classList.add("is-visible"));
+      motion.addEventListener("change", (event) => { if (event.matches) disableMotion(); });
+      addEventListener("pagehide", disableMotion, { once: true });
+    } catch { disableMotion(); }
+  }
 })();
