@@ -3,10 +3,15 @@
   const { keys, languages } = window.PI_DEVEAGENT_LOCALES;
   const product = window.PI_DEVEAGENT_PRODUCT;
   const picker = document.querySelector("#language");
-  const themes = ["white", "dark", "parchment", "green", "rose", "blush", "lavender", "midnight"];
+  const themes = ["white", "dark"];
+  const previewButtons = [...document.querySelectorAll("[data-preview-choice]")];
+  let preview = "workspace-light";
+  let loadedPreview = preview;
+  let animationPlaying = false;
+  let copy = {};
   const params = new URLSearchParams(location.search);
   let language = languages.find((item) => item.code === params.get("lang")) || languages[0];
-  let theme = themes.includes(params.get("theme")) ? params.get("theme") : "white";
+  let theme = params.get("theme") === "midnight" ? "dark" : themes.includes(params.get("theme")) ? params.get("theme") : "white";
   const sources = [
     ["Pi", "earendil-works/pi", "main"],
     ["PiDeck / Pi Desk", "ayuayue/PiDeck", "main"],
@@ -61,7 +66,7 @@
   }
   function setLanguage(item) {
     language = item;
-    const copy = Object.fromEntries(keys.map((key, index) => [key, item.text[index]]));
+    copy = Object.fromEntries(keys.map((key, index) => [key, item.text[index]]));
     document.documentElement.lang = item.code;
     document.documentElement.dir = item.dir || "ltr";
     picker.value = item.code;
@@ -69,7 +74,9 @@
     document.querySelector(".skip").textContent = copy.skipLabel;
     picker.setAttribute("aria-label", copy.languageLabel);
     document.querySelector("nav")?.setAttribute("aria-label", copy.navigationLabel);
-    document.querySelector(".theme-options")?.setAttribute("aria-label", copy.themeLabel);
+    for (const element of document.querySelectorAll("[data-i18n-aria]")) element.setAttribute("aria-label", copy[element.dataset.i18nAria]);
+    updatePreviewLabel();
+    updateAnimationButton();
     document.querySelector(".workspace-preview")?.setAttribute("aria-label", copy.previewAria);
     const credits = document.body.dataset.page === "credits";
     document.title = `${credits ? copy.creditsTitle : copy.title} · Pi Deve Agent`;
@@ -80,13 +87,53 @@
     syncLinks();
   }
   function setTheme(value) {
+    if (!themes.includes(value)) return;
     theme = value;
     document.documentElement.dataset.theme = value;
-    const heroImage = document.querySelector(".hero-screen > img");
-    const source = `assets/workspace-${value === "dark" || value === "midnight" ? "dark" : "light"}.png`;
-    if (heroImage && heroImage.getAttribute("src") !== source) heroImage.src = source;
-    for (const button of document.querySelectorAll("[data-theme-choice]")) button.setAttribute("aria-pressed", String(button.dataset.themeChoice === value));
+    for (const button of document.querySelectorAll("[data-website-theme]")) button.setAttribute("aria-pressed", String(button.dataset.websiteTheme === value));
     syncLinks();
+  }
+  function updatePreviewLabel() {
+    const selected = previewButtons.find((button) => button.dataset.previewChoice === preview);
+    const name = document.querySelector("#preview-name");
+    if (name && selected) name.textContent = selected.textContent.trim();
+  }
+  function setPreview(value) {
+    if (!previewButtons.some((button) => button.dataset.previewChoice === value)) return;
+    const image = document.querySelector("#gallery-image");
+    if (!image || value === preview) return;
+    const previous = loadedPreview;
+    preview = value;
+    image.classList.add("is-switching");
+    const finish = () => {
+      image.classList.remove("is-switching");
+      for (const button of previewButtons) button.setAttribute("aria-pressed", String(button.dataset.previewChoice === preview));
+      updatePreviewLabel();
+    };
+    image.onload = () => { loadedPreview = preview; finish(); };
+    image.onerror = () => {
+      image.onerror = null;
+      preview = previous;
+      image.src = `assets/${previous}.png`;
+      finish();
+    };
+    image.src = `assets/${value}.png`;
+    if (image.complete && image.naturalWidth) { loadedPreview = preview; finish(); }
+    // Software screenshots have their own selection; the website theme is independent.
+  }
+  function updateAnimationButton() {
+    const button = document.querySelector("#motion-play");
+    if (!button) return;
+    button.textContent = animationPlaying ? copy.stopAnimation : copy.viewAnimation;
+    button.setAttribute("aria-pressed", String(animationPlaying));
+  }
+  function setAnimation(playing) {
+    const image = document.querySelector("#motion-image");
+    if (!image) return;
+    animationPlaying = playing;
+    image.onerror = () => { if (animationPlaying) setAnimation(false); };
+    image.src = playing ? "assets/product-tour.gif" : "assets/workspace-light.png";
+    updateAnimationButton();
   }
   function publishedUrl(value) {
     if (!value) return undefined;
@@ -108,15 +155,10 @@
     setLanguage(languages.find((item) => item.code === picker.value) || languages[0]);
     updateAddress();
   });
-  for (const button of document.querySelectorAll("[data-theme-choice]")) button.addEventListener("click", () => { setTheme(button.dataset.themeChoice); updateAddress(); });
-  for (const button of document.querySelectorAll("[data-gallery]")) button.addEventListener("click", () => {
-    const image = document.querySelector("#gallery-image");
-    image.classList.add("is-switching");
-    image.onload = image.onerror = () => image.classList.remove("is-switching");
-    image.src = `assets/${button.dataset.gallery}.png`;
-    if (image.complete) image.classList.remove("is-switching");
-    for (const item of document.querySelectorAll("[data-gallery]")) item.setAttribute("aria-pressed", String(item === button));
-  });
+  for (const button of document.querySelectorAll("[data-website-theme]")) button.addEventListener("click", () => { setTheme(button.dataset.websiteTheme); updateAddress(); });
+  for (const button of previewButtons) button.addEventListener("click", () => setPreview(button.dataset.previewChoice));
+  document.querySelector("#motion-play")?.addEventListener("click", () => setAnimation(!animationPlaying));
+  addEventListener("pagehide", () => setAnimation(false), { once: true });
   setLanguage(language);
   setTheme(theme);
 
@@ -145,7 +187,7 @@
       document.documentElement.classList.add("motion-ready");
       // Keyboard jumps cannot land in transparent content while waiting for the observer.
       document.addEventListener("focusin", (event) => event.target.closest?.("[data-reveal]")?.classList.add("is-visible"));
-      motion.addEventListener("change", (event) => { if (event.matches) disableMotion(); });
+      motion.addEventListener("change", (event) => { if (event.matches) { disableMotion(); setAnimation(false); } });
       addEventListener("pagehide", disableMotion, { once: true });
     } catch { disableMotion(); }
   }

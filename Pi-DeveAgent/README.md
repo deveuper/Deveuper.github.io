@@ -45,14 +45,18 @@ MoA 的输出质量、速度与费用由任务和模型决定，不承诺固定�
 
 [简体中文](https://deveuper.github.io/Pi-DeveAgent/?lang=zh-CN) · [English](https://deveuper.github.io/Pi-DeveAgent/?lang=en) · [繁體中文](https://deveuper.github.io/Pi-DeveAgent/?lang=zh-TW) · [日本語](https://deveuper.github.io/Pi-DeveAgent/?lang=ja) · [한국어](https://deveuper.github.io/Pi-DeveAgent/?lang=ko) · [Français](https://deveuper.github.io/Pi-DeveAgent/?lang=fr) · [Deutsch](https://deveuper.github.io/Pi-DeveAgent/?lang=de) · [Español](https://deveuper.github.io/Pi-DeveAgent/?lang=es) · [Português](https://deveuper.github.io/Pi-DeveAgent/?lang=pt) · [Italiano](https://deveuper.github.io/Pi-DeveAgent/?lang=it) · [Русский](https://deveuper.github.io/Pi-DeveAgent/?lang=ru) · [العربية](https://deveuper.github.io/Pi-DeveAgent/?lang=ar) · [हिन्दी](https://deveuper.github.io/Pi-DeveAgent/?lang=hi) · [Bahasa Indonesia](https://deveuper.github.io/Pi-DeveAgent/?lang=id) · [Tiếng Việt](https://deveuper.github.io/Pi-DeveAgent/?lang=vi)
 
+## 本轮修复
+
+项目创建与编辑支持图标、颜色、主文件夹和参考文件夹；已有会话保留原目录。视图可在项目目录打开 Pi、Codex 和 Claude Code 终端，帮助提供可跳过的新手教程。网站提供十二种真实软件配色展示与可播放的动效 GIF；网页的黑白模式独立切换。历史修复和个人配置继续保留。
+
 ## English
 
 An independent desktop workspace around the official Pi core. Organize projects and conversations, connect your own API or local models, and coordinate multiple agents through editable MoA roles. The shell adds voice transcription, artifact previews, session fallback models and optional tool ecosystems while maintaining separate core and extension updates.
 
-The desktop currently supports **Simplified Chinese and English**. The product website offers **15 introduction languages** and eight website color previews. Download audited Windows x64 packages from the public release page; provide your own credentials. Computer control is an optional, removable external extension. Model quality and token savings are task-dependent.
+The desktop currently supports **Simplified Chinese and English**. The product website offers **15 introduction languages** and twelve actual software color previews, independent of the website's light/dark mode. Projects support custom icons and primary/reference folders. Open installed Pi, Codex or Claude Code terminals in the project folder, and reopen the skippable starter guide from Help. Download audited Windows x64 packages from the public release page; provide your own credentials. Computer control is an optional, removable external extension. Model quality and token savings are task-dependent.
 
 ## 许可与参考来源
 
 本产品在 MIT 许可基础上维护。原有许可和必要版权声明保留于 [LICENSE](LICENSE) 与 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。依赖、插件和模型分别遵守各自的许可。
 
-[参考来源](https://deveuper.github.io/Pi-DeveAgent/references.html)包括 Pi、PiDeck、Pi Agent Desktop、PI-Desktop、Pi Desktop、Hermes Agent 与 DeepSeek Harness。参考不表示合作或背书；DSH 和 Hermes 只用于研究，不随本产品安装或运行。
+[参考来源](https://deveuper.github.io/Pi-DeveAgent/references.html)包括 Pi、PiDeck、Pi Agent Desktop、PI-Desktop、Pi Desktop、Hermes Agent 与 DeepSeek Harness。参考不表示合作或背书。
