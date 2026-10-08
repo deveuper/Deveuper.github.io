@@ -7,7 +7,7 @@
   const previewButtons = [...document.querySelectorAll("[data-preview-choice]")];
   let preview = "workspace-light";
   let loadedPreview = preview;
-  let animationPlaying = false;
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
   let copy = {};
   const params = new URLSearchParams(location.search);
   let language = languages.find((item) => item.code === params.get("lang")) || languages[0];
@@ -76,7 +76,6 @@
     document.querySelector("nav")?.setAttribute("aria-label", copy.navigationLabel);
     for (const element of document.querySelectorAll("[data-i18n-aria]")) element.setAttribute("aria-label", copy[element.dataset.i18nAria]);
     updatePreviewLabel();
-    updateAnimationButton();
     document.querySelector(".workspace-preview")?.setAttribute("aria-label", copy.previewAria);
     const credits = document.body.dataset.page === "credits";
     document.title = `${credits ? copy.creditsTitle : copy.title} · Pi Deve Agent`;
@@ -110,7 +109,11 @@
       for (const button of previewButtons) button.setAttribute("aria-pressed", String(button.dataset.previewChoice === preview));
       updatePreviewLabel();
     };
-    image.onload = () => { loadedPreview = preview; finish(); };
+    image.onload = () => {
+      loadedPreview = preview;
+      finish();
+      if (!motion.matches) image.animate([{ opacity: 0.4, transform: "translateY(9px) scale(.99)" }, { opacity: 1, transform: "none" }], { duration: 420, easing: "cubic-bezier(.2,.7,.2,1)" });
+    };
     image.onerror = () => {
       image.onerror = null;
       preview = previous;
@@ -118,22 +121,7 @@
       finish();
     };
     image.src = `assets/${value}.png`;
-    if (image.complete && image.naturalWidth) { loadedPreview = preview; finish(); }
     // Software screenshots have their own selection; the website theme is independent.
-  }
-  function updateAnimationButton() {
-    const button = document.querySelector("#motion-play");
-    if (!button) return;
-    button.textContent = animationPlaying ? copy.stopAnimation : copy.viewAnimation;
-    button.setAttribute("aria-pressed", String(animationPlaying));
-  }
-  function setAnimation(playing) {
-    const image = document.querySelector("#motion-image");
-    if (!image) return;
-    animationPlaying = playing;
-    image.onerror = () => { if (animationPlaying) setAnimation(false); };
-    image.src = playing ? "assets/product-tour.gif" : "assets/workspace-light.png";
-    updateAnimationButton();
   }
   function publishedUrl(value) {
     if (!value) return undefined;
@@ -154,24 +142,45 @@
   picker.addEventListener("change", () => {
     setLanguage(languages.find((item) => item.code === picker.value) || languages[0]);
     updateAddress();
+    scheduleScrollMotion();
   });
   for (const button of document.querySelectorAll("[data-website-theme]")) button.addEventListener("click", () => { setTheme(button.dataset.websiteTheme); updateAddress(); });
   for (const button of previewButtons) button.addEventListener("click", () => setPreview(button.dataset.previewChoice));
-  document.querySelector("#motion-play")?.addEventListener("click", () => setAnimation(!animationPlaying));
-  addEventListener("pagehide", () => setAnimation(false), { once: true });
   setLanguage(language);
   setTheme(theme);
 
   // Progressive enhancement: no observer, no JavaScript, or reduced motion keeps all content visible.
-  const motion = matchMedia("(prefers-reduced-motion: reduce)");
   let observer;
+  let motionFrame;
+  const hero = document.querySelector(".hero");
+  function renderScrollMotion() {
+    motionFrame = undefined;
+    const height = document.documentElement.scrollHeight - innerHeight;
+    document.documentElement.style.setProperty("--page-progress", String(height > 0 ? Math.min(1, Math.max(0, scrollY / height)) : 0));
+    if (hero) {
+      const bounds = hero.getBoundingClientRect();
+      document.documentElement.style.setProperty("--hero-scroll", String(Math.min(1, Math.max(0, -bounds.top / bounds.height))));
+    }
+  }
+  function scheduleScrollMotion() {
+    if (!motion.matches && motionFrame === undefined) motionFrame = requestAnimationFrame(renderScrollMotion);
+  }
   function disableMotion() {
     document.documentElement.classList.remove("motion-ready");
     observer?.disconnect();
+    removeEventListener("scroll", scheduleScrollMotion);
+    removeEventListener("resize", scheduleScrollMotion);
+    if (motionFrame !== undefined) cancelAnimationFrame(motionFrame);
+    motionFrame = undefined;
+    document.querySelector("#gallery-image")?.getAnimations().forEach((animation) => animation.cancel());
+    document.documentElement.style.removeProperty("--hero-scroll");
+    document.documentElement.style.removeProperty("--page-progress");
   }
-  if (!motion.matches && "IntersectionObserver" in window) {
+  function enableMotion() {
+    disableMotion();
+    if (motion.matches || !("IntersectionObserver" in window)) return;
     try {
-      const elements = document.querySelectorAll(".hero-copy, .hero-screen, .section-heading, .feature-grid article, .section-copy, .detail-screen, .toolkit article, .gallery, .architecture-line, .download-section");
+      const elements = document.querySelectorAll(".hero-copy, .hero-screen, .section-heading, .feature-grid article, .section-copy, .detail-screen, .toolkit article, .gallery, .architecture-line, .architecture-node, .download-section");
       observer = new IntersectionObserver((entries) => {
         for (const entry of entries) if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
@@ -180,15 +189,21 @@
       }, { threshold: 0.05, rootMargin: "0px 0px -24px 0px" });
       for (const element of elements) {
         element.dataset.reveal = "";
+        if (element.matches(".feature-grid article, .architecture-node")) element.style.setProperty("--reveal-order", String([...element.parentElement.children].indexOf(element) % 4));
         const bounds = element.getBoundingClientRect();
         if (bounds.top < innerHeight && bounds.bottom > 0) element.classList.add("is-visible");
         observer.observe(element);
       }
       document.documentElement.classList.add("motion-ready");
-      // Keyboard jumps cannot land in transparent content while waiting for the observer.
-      document.addEventListener("focusin", (event) => event.target.closest?.("[data-reveal]")?.classList.add("is-visible"));
-      motion.addEventListener("change", (event) => { if (event.matches) { disableMotion(); setAnimation(false); } });
-      addEventListener("pagehide", disableMotion, { once: true });
+      addEventListener("scroll", scheduleScrollMotion, { passive: true });
+      addEventListener("resize", scheduleScrollMotion, { passive: true });
+      scheduleScrollMotion();
     } catch { disableMotion(); }
   }
+  // Keyboard jumps keep content visible before an observer callback.
+  document.addEventListener("focusin", (event) => event.target.closest?.("[data-reveal]")?.classList.add("is-visible"));
+  motion.addEventListener("change", enableMotion);
+  addEventListener("pagehide", disableMotion);
+  addEventListener("pageshow", enableMotion);
+  enableMotion();
 })();

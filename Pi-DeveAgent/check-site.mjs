@@ -27,9 +27,13 @@ assert.equal(previews.length, 12);
 assert.equal(new Set(previews).size, previews.length);
 assert.ok(!html.includes("data-theme-choice"));
 assert.ok(!html.includes("网站配色预览"));
-for (const image of [...previews.map(name => `assets/${name}.png`), "assets/product-tour.gif"]) {
+for (const image of previews.map(name => `assets/${name}.png`)) {
   assert.ok(existsSync(fileURLToPath(new URL(image, root))), `Missing real capture: ${image}`);
 }
 assert.ok(read("styles.css").includes("prefers-reduced-motion:reduce"));
-assert.ok(read("app.js").includes('image.src = playing ? "assets/product-tour.gif" : "assets/workspace-light.png"'));
-console.log("Website contracts passed: 15 languages, 12 real software colors, separate website controls, opt-in GIF.");
+assert.ok(!html.includes("product-tour.gif") && !read("app.js").includes("product-tour.gif"));
+assert.ok(!html.includes("motion-play"));
+assert.ok(html.indexOf('id="architecture"') < html.indexOf('id="features"'));
+assert.equal([...html.matchAll(/<article><span class="feature-symbol"/g)].length, 8);
+for (const key of ["computerTitle", "memoryTitle", "localTitle", "lightweightTitle", "coreBody", "workbenchBody", "ecosystemBody"]) assert.ok(html.includes(`data-i18n="${key}"`));
+console.log("Website contracts passed: 15 languages, 12 software previews, 8 capabilities, independent Pi core first, live webpage motion without GIF.");
