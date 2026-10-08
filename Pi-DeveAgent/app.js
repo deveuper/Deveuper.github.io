@@ -83,7 +83,8 @@
     theme = value;
     document.documentElement.dataset.theme = value;
     const heroImage = document.querySelector(".hero-screen > img");
-    if (heroImage) heroImage.src = `assets/workspace-${value === "dark" || value === "midnight" ? "dark" : "light"}.png`;
+    const source = `assets/workspace-${value === "dark" || value === "midnight" ? "dark" : "light"}.png`;
+    if (heroImage && heroImage.getAttribute("src") !== source) heroImage.src = source;
     for (const button of document.querySelectorAll("[data-theme-choice]")) button.setAttribute("aria-pressed", String(button.dataset.themeChoice === value));
     syncLinks();
   }
