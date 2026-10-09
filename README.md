@@ -1,4 +1,8 @@
-# Pi Deve Agent
+# DEVE 软件资源综合站
+
+软件介绍、下载与使用资料的统一入口。
+
+## Pi Deve Agent
 
 [打开产品主页](https://deveuper.github.io/Pi-DeveAgent/) · [下载](https://github.com/deveuper/Deveuper.github.io/releases) · [查看公开介绍](https://github.com/deveuper/Deveuper.github.io/tree/main/Pi-DeveAgent)
 
