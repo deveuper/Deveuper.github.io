@@ -2,6 +2,15 @@
   "version": 1,
   "announcements": [
     {
+      "id": "deve-release-1-0-19",
+      "title": "Pi DeveAgent 1.0.19 已发布",
+      "body": "本轮修复模型测速与思考档位配置，设置顶部增加 Agent 能力入口。MOA 群聊工作台展示各模型、工具和阶段，并支持暂停、继续和停止。\n\nMiMo 与 GLM 的小型编码和互审链已实测通过；复杂项目、长期不限轮次和固定 token 节省比例仍未验收。官方 Pi 内核保持独立，更新请保留 data 中的设置与会话。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.19)",
+      "level": "info",
+      "category": "notice",
+      "publishedAt": "2026-10-11T00:00:00+08:00",
+      "effectiveUntil": "2026-11-11T00:00:00+08:00"
+    },
+    {
       "id": "deve-announcement-source",
       "title": "Pi DeveAgent 公告",
       "body": "这里显示 Pi DeveAgent 自己发布的公告与使用说明。\n\n公告从本产品的公开 GitHub Pages 站点获取。可以点击“刷新”手动检查，应用也会定期检查；同一份公告的 GitHub 原文是备用来源。\n\n公告包含发布时间和有效期。更新与下载以自有产品主页和发行页面为准。\n\n[产品主页与下载](https://deveuper.github.io/Pi-DeveAgent/)",
