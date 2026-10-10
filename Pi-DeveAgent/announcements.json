@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "announcements": [
+    {
+      "id": "deve-announcement-source",
+      "title": "Pi DeveAgent 公告",
+      "body": "这里显示 Pi DeveAgent 自己发布的公告与使用说明。\n\n公告从本产品的公开 GitHub Pages 站点获取。可以点击“刷新”手动检查，应用也会定期检查；同一份公告的 GitHub 原文是备用来源。\n\n公告包含发布时间和有效期。更新与下载以自有产品主页和发行页面为准。\n\n[产品主页与下载](https://deveuper.github.io/Pi-DeveAgent/)",
+      "level": "info",
+      "category": "guide",
+      "publishedAt": "2026-10-10T00:00:00+08:00",
+      "effectiveUntil": "2099-01-01T00:00:00+08:00"
+    },
+    {
+      "id": "deve-feedback",
+      "title": "问题反馈与诊断",
+      "body": "点击左下方反馈按钮，可以描述问题、生成诊断、复制分析提示词或导出日志。\n\n“GitHub 反馈”会打开 Pi DeveAgent 自有仓库的 Issues 页面。请填写实际现象、复现步骤和软件版本，按需要附上截图。\n\n诊断导出会清洗常见凭据格式；自行填写的说明与附件在公开提交前仍需要你检查。应用不会自动提交问题或上传诊断文件。\n\n[打开 Pi DeveAgent Issues](https://github.com/deveuper/Pi-DeveAgent/issues)",
+      "level": "info",
+      "category": "guide",
+      "publishedAt": "2026-10-10T00:00:00+08:00",
+      "effectiveUntil": "2099-01-01T00:00:00+08:00"
+    },
+    {
+      "id": "deve-getting-started",
+      "title": "开始使用 Pi DeveAgent",
+      "body": "Pi DeveAgent 是独立的 Pi 工作台。官方 Pi 内核、第三方插件与工作台分别更新，已有模型配置和会话继续使用原有数据目录。\n\n1. 从左侧创建聊天，或添加项目文件夹后创建项目会话。\n2. 在输入框右下方选择已配置的模型与思考强度。没有模型时，从模型菜单打开管理。\n3. 插件、Skill 与 MCP 分别在左侧入口管理。Computer Use 是可安装、更新或卸载的外部插件；本地模型也可按需接入。\n4. “视图”菜单可打开当前项目的终端和文件面板；“帮助”菜单可以重新查看新手教程。\n\n[产品主页](https://deveuper.github.io/Pi-DeveAgent/)",
+      "level": "info",
+      "category": "guide",
+      "publishedAt": "2026-10-10T00:00:00+08:00",
+      "effectiveUntil": "2099-01-01T00:00:00+08:00"
+    }
+  ]
+}
