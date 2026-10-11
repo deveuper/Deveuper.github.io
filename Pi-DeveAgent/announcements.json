@@ -2,6 +2,15 @@
   "version": 1,
   "announcements": [
     {
+      "id": "deve-release-1-0-20",
+      "title": "Pi DeveAgent 1.0.20 已发布",
+      "body": "本轮围绕会话归属和恢复可靠性修复四项问题：\n\n1. 模型、思考强度及状态的迟到 RPC 回执绑定原运行时，避免切换或重启后混入另一个会话。\n2. 检查点确认绑定原目标，后台拒绝跨会话检查点；迟到 fork 与历史读取结果不能刷新替换后的运行时。\n3. 自有分发版的版本信息使用本产品公开下载源。\n4. 补齐已登记第三方 pi-subagents 单任务的异步完成通知与终态持久化，并校验会话归属；独立 MoA 保持自身协议。\n\n工作台与官方 Pi 内核继续独立维护，更新请保留原有设置与会话。本轮未新增付费模型任务、复杂项目、长期不限轮次或固定 token 节省比例的验收结论。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.20)",
+      "level": "info",
+      "category": "notice",
+      "publishedAt": "2026-10-11T17:20:56.198Z",
+      "effectiveUntil": "2026-11-11T17:20:56.198Z"
+    },
+    {
       "id": "deve-release-1-0-19",
       "title": "Pi DeveAgent 1.0.19 已发布",
       "body": "本轮修复模型测速与思考档位配置，设置顶部增加 Agent 能力入口。MOA 群聊工作台展示各模型、工具和阶段，并支持暂停、继续和停止。\n\nMiMo 与 GLM 的小型编码和互审链已实测通过；复杂项目、长期不限轮次和固定 token 节省比例仍未验收。官方 Pi 内核保持独立，更新请保留 data 中的设置与会话。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.19)",
