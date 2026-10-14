@@ -2,6 +2,15 @@
   "version": 1,
   "announcements": [
     {
+      "id": "deve-release-1-0-22",
+      "title": "Pi DeveAgent 1.0.22 已发布",
+      "body": "本版修复四处：模型创建校验与选择器使用同源能力目录，避免扩展新模型被旧 CLI 缓存误判；clone / switch_session 拒绝进程替换后的旧 RPC 回执；退出或重复进入 Plan 时保留晚到工具，并继续执行只读限制；MoA 角色运行指示使用共享旋转样式。\n\n1.0.21 已有的左栏宽度修复和终端按需加载继续保留，不计作本轮新增。工作台与独立官方 Pi 1.0.3 内核分别维护，更新请保留原有设置与会话。\n\n本轮没有收费模型生成；复杂编码、长期不限轮次 MoA 和固定 40% token 节省仍未验收。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.22)",
+      "level": "info",
+      "category": "notice",
+      "publishedAt": "2026-10-14T17:41:32.422Z",
+      "effectiveUntil": "2026-11-14T17:41:32.422Z"
+    },
+    {
       "id": "deve-release-1-0-21",
       "title": "Pi DeveAgent 1.0.21 已发布",
       "body": "左栏宽度修复已纳入公开安装包：关闭右栏、切换模式和窗口尺寸变化后保留默认或手动调整的宽度。自动恢复不会覆盖正在进行的拖拽。终端原生模块按需加载；模块故障只影响终端请求，不再阻断桌面启动。\n\n发行包经过已知个人凭据扫描、完整解压和隐藏启动验证。工作台与官方 Pi 内核独立维护，更新请保留原有设置与会话。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.21)",
