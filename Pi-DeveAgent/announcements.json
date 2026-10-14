@@ -2,6 +2,15 @@
   "version": 1,
   "announcements": [
     {
+      "id": "deve-release-1-0-21",
+      "title": "Pi DeveAgent 1.0.21 已发布",
+      "body": "左栏宽度修复已纳入公开安装包：关闭右栏、切换模式和窗口尺寸变化后保留默认或手动调整的宽度。自动恢复不会覆盖正在进行的拖拽。终端原生模块按需加载；模块故障只影响终端请求，不再阻断桌面启动。\n\n发行包经过已知个人凭据扫描、完整解压和隐藏启动验证。工作台与官方 Pi 内核独立维护，更新请保留原有设置与会话。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.21)",
+      "level": "info",
+      "category": "notice",
+      "publishedAt": "2026-10-14T04:02:37.752Z",
+      "effectiveUntil": "2026-11-14T04:02:37.752Z"
+    },
+    {
       "id": "deve-release-1-0-20",
       "title": "Pi DeveAgent 1.0.20 已发布",
       "body": "本轮围绕会话归属和恢复可靠性修复四项问题：\n\n1. 模型、思考强度及状态的迟到 RPC 回执绑定原运行时，避免切换或重启后混入另一个会话。\n2. 检查点确认绑定原目标，后台拒绝跨会话检查点；迟到 fork 与历史读取结果不能刷新替换后的运行时。\n3. 自有分发版的版本信息使用本产品公开下载源。\n4. 补齐已登记第三方 pi-subagents 单任务的异步完成通知与终态持久化，并校验会话归属；独立 MoA 保持自身协议。\n\n工作台与官方 Pi 内核继续独立维护，更新请保留原有设置与会话。本轮未新增付费模型任务、复杂项目、长期不限轮次或固定 token 节省比例的验收结论。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.20)",
