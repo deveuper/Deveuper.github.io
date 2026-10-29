@@ -2,6 +2,15 @@
   "version": 1,
   "announcements": [
     {
+      "id": "deve-release-1-0-24",
+      "title": "Pi DeveAgent 1.0.24 已发布",
+      "body": "本版完善五处：旧扫描不再回退较新的会话活动与排序；命令目录返回时拒绝旧运行实例的迟到结果；计划恢复只续接已确认执行，清理未确认草案及跨会话残留；会话与文件预览的 Markdown 清理危险 HTML 与全局样式，保留受支持的公式、SVG 和本地链接；设置首次慢加载显示可用 Esc 或关闭按钮取消的等待面板，取消后不被迟到结果重新打开。\n\n本轮没有收费模型生成。复杂编码、长期不限轮次 MoA 和固定 40% Token 节省仍未验收。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.24)",
+      "level": "info",
+      "category": "notice",
+      "publishedAt": "2026-10-29T06:23:15.949Z",
+      "effectiveUntil": "2026-11-29T06:23:15.949Z"
+    },
+    {
       "id": "deve-release-1-0-23",
       "title": "Pi DeveAgent 1.0.23 已发布",
       "body": "本版更新四处：滚动跟随只回传仍与实时引擎一致的状态，避免过期快照覆盖手动浏览；首次绑定使后台历史读取失效时，丢弃旧结果并重新读盘，完整归属检查继续生效；工具详情区分运行中、完成和失败，不再提前把无输出的长任务写成完成；识别新版 Kimi 模型目录明确声明的上下文容量、图片输入和精确思考档位，保留可关闭或必须思考的区别，沿用官方 Pi 原生关闭行为，未知能力不猜测，也不改用户默认档位。\n\n本轮模型目录采用本地夹具验证，没有收费模型生成。复杂编码、长期不限轮次 MoA 和固定 40% Token 节省仍未验收。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.23)",
