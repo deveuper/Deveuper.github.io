@@ -2,6 +2,15 @@
   "version": 1,
   "announcements": [
     {
+      "id": "deve-release-1-0-25",
+      "title": "Pi DeveAgent 1.0.25 已发布",
+      "body": "本版完善四处：思考档位按当前模型的已知能力统一显示、选择和保存；批量提问未答完不再提前提交，保留答案并定位缺题；超长已完成回答按需展开，文本复制、编辑和模型上下文保留全文；忙时插入或排队消息后，仍运行的工具轮次继续显示运行状态。\n\n本轮没有收费模型生成。官方 Pi 独立保留。复杂编码、长期不限轮次 MoA 和固定 40% Token 节省仍未验收。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.25)",
+      "level": "info",
+      "category": "notice",
+      "publishedAt": "2026-10-30T16:56:37.166Z",
+      "effectiveUntil": "2026-11-30T16:56:37.166Z"
+    },
+    {
       "id": "deve-release-1-0-24",
       "title": "Pi DeveAgent 1.0.24 已发布",
       "body": "本版完善五处：旧扫描不再回退较新的会话活动与排序；命令目录返回时拒绝旧运行实例的迟到结果；计划恢复只续接已确认执行，清理未确认草案及跨会话残留；会话与文件预览的 Markdown 清理危险 HTML 与全局样式，保留受支持的公式、SVG 和本地链接；设置首次慢加载显示可用 Esc 或关闭按钮取消的等待面板，取消后不被迟到结果重新打开。\n\n本轮没有收费模型生成。复杂编码、长期不限轮次 MoA 和固定 40% Token 节省仍未验收。\n\n[查看更新与下载](https://github.com/deveuper/Deveuper.github.io/releases/tag/pi-deveagent-v1.0.24)",
